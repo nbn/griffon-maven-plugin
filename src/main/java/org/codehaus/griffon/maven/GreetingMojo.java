@@ -8,6 +8,7 @@ import java.util.List;
 
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
+import org.apache.maven.project.MavenProject;
 import org.codehaus.griffon.launcher.GriffonLauncher;
 import org.codehaus.griffon.launcher.RootLoader;
 
@@ -17,11 +18,15 @@ import org.codehaus.griffon.launcher.RootLoader;
  * @goal sayhi
  */
 public class GreetingMojo extends AbstractMojo {
-	// Assuming we know which script to run..
-	File scriptFile = new File(
-			"/Users/nielsbechnielsen/Tools/griffon-1.2.0/scripts/Package.groovy");
-	File baseDir = new File(".");
-
+	
+	
+/**
+ * @parameter expression="${project}"
+ * @readonly
+ * @required
+ */
+	private MavenProject project;
+	
 	public void execute() throws MojoExecutionException{
 		getLog().info("Hello, world.");
 		
@@ -31,9 +36,28 @@ public class GreetingMojo extends AbstractMojo {
 		} catch (MalformedURLException e) {
 			throw new MojoExecutionException("Unable to create CP", e);
 		}
-		GriffonLauncher launcher = new GriffonLauncher(rootLoader, null, ".");
-		launcher.launch("package", "", "dev");
+		String packaging = getGriffonPackagesToPackage();
+		GriffonLauncher launcher = new GriffonLauncher(rootLoader, "/Users/nielsbechnielsen/workspace/ws-erhverv/FirstGriffon/template", ".");
+		launcher.setClassesDir(new File("/Users/nielsbechnielsen/workspace/ws-erhverv/FirstGriffon/target/griffon-classes"));
+		launcher.launch("package", packaging, "dev");
 		
+	}
+
+	private String getGriffonPackagesToPackage() {
+		String packaging = project.getPackaging();
+		
+		// Get the default maven package
+		if ("griffon-app".equals(packaging))
+			packaging = "jar";
+		else if ("griffon-applet".equals(packaging))
+			packaging = "applet";
+		else if ("griffon-webstart".equals(packaging))
+			packaging = "webstart";
+		else if ("griffon-assembly".equals(packaging))
+			packaging = "zip";
+		
+		// Later see if user specify additional packaging
+		return packaging;
 	}
 	
 	public URL[] createCP() throws MalformedURLException {
