@@ -22,6 +22,9 @@ import java.io.IOException;
 import org.apache.maven.plugin.MojoExecutionException;
 
 public interface GriffonServices {
+	
+	public static String ROLE = GriffonServices.class.getName();
+	
     /**
      * Sets the basedir that all commands are executed from
      *
