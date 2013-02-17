@@ -89,7 +89,7 @@ public abstract class AbstractGriffonMojo extends AbstractMojo {
 	@Parameter(defaultValue = "${repositorySystemSession}", readonly = true)
 	private RepositorySystemSession repoSession;
 
-	@Parameter(defaultValue = "${project.remotePluginRepositories}", readonly = true)
+	@Parameter(defaultValue = "${project.remoteProjectRepositories}", readonly = true)
 	private List<RemoteRepository> remoteRepos;
 
 	/**
@@ -162,12 +162,6 @@ public abstract class AbstractGriffonMojo extends AbstractMojo {
 		collectRequest.setRoot(new org.sonatype.aether.graph.Dependency(artifact, JavaScopes.RUNTIME));
 		collectRequest.setRepositories(remoteRepos);
 
-		getLog().info("Repositories");
-		for (RemoteRepository element : remoteRepos) {
-			getLog().info("repo :" + element.toString());
-		}
-		getLog().info("************");
-		
 		try {
 			List<URL> cp = new ArrayList<URL>();
 			List<ArtifactResult> dependencies = this.repoSystem.resolveDependencies(repoSession, collectRequest, classpathFilter);
