@@ -43,10 +43,13 @@
           <lifecycle>
             <id>default</id>
             <phases>
-              <validate>org.griffon:griffon-maven-plugin:validate</validate>
-              <initialize>org.griffon:griffon-maven-plugin:init</initialize>
+              <validate>org.codehaus.griffon:griffon-maven-plugin:validate</validate>
+              <initialize>
+                org.codehaus.griffon:griffon-maven-plugin:prepare,
+              	org.codehaus.griffon:griffon-maven-plugin:init
+              </initialize>
+              <generate-sources>org.codehaus.griffon:griffon-maven-plugin:config-directories</generate-sources>
               <!-- 
-              <generate-sources>org.griffon:griffon-maven-plugin:config-directories</generate-sources>
               <compile>org.griffon:griffon-maven-plugin:maven-compile</compile>
               <test>org.griffon:griffon-maven-plugin:maven-test</test>
               <package>org.griffon:griffon-maven-plugin:maven-griffon-app-package</package>

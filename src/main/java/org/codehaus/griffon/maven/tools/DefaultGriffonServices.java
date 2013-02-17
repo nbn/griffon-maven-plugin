@@ -23,15 +23,16 @@ import java.util.Date;
 import java.util.Properties;
 
 import org.apache.maven.plugin.MojoExecutionException;
+import org.codehaus.plexus.component.annotations.Component;
 import org.codehaus.plexus.logging.AbstractLogEnabled;
 import org.codehaus.plexus.util.IOUtil;
 
 /**
- * @author <a href="mailto:nielsbechnielsen@gmail.com">Niels Bech Nielsen</a>
- * @plexus.component role="org.codehaus.griffon.maven.tools.GriffonServices"
+ * @author Created for Grails by <a href="mailto:aheritier@gmail.com">Arnaud HERITIER</a>
+ * @author Ported to Griffon by <a href="mailto:nielsbechnielsen@gmail.com">Niels Bech Nielsen</a>
  * @since 1.3.0
  */
-
+@Component(role=GriffonServices.class)
 public class DefaultGriffonServices extends AbstractLogEnabled implements GriffonServices {
 
     private File _basedir;

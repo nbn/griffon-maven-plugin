@@ -28,13 +28,13 @@ public interface GriffonServices {
     /**
      * Sets the basedir that all commands are executed from
      *
-     * @since 1.3.0
+     * @since 1.3
      */
     void setBasedir(File basedir);
     /**
      * Read a griffon project descriptor (application.properties) from a file.
      *
-     * @since 1.3.0
+     * @since 1.3
      * @return A Griffon Project Descriptor
      * @throws Exception
      *                 if a problem occurs
@@ -44,7 +44,7 @@ public interface GriffonServices {
     /**
      * Write a grails project descriptor (application.properties) in a file.
      *
-     * @since 1.3.0
+     * @since 1.3
      * @param projectDir
      *                The Griffon project directory.
      * @param griffonProjectDescriptor

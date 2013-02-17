@@ -16,7 +16,8 @@
 package org.codehaus.griffon.maven.tools;
 
 /**
- * @author <a href="mailto:nielsbechnielsen@gmail.com">Niels Bech Nielsen</a>
+ * @author Created for Grails by <a href="mailto:aheritier@gmail.com">Arnaud HERITIER</a>
+ * @author Ported to Griffon by <a href="mailto:nielsbechnielsen@gmail.com">Niels Bech Nielsen</a>
  */
 public class GriffonProject {
     private String appGriffonVersion;

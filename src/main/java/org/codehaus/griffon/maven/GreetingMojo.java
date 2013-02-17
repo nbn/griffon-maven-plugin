@@ -9,22 +9,20 @@ import java.util.List;
 import org.apache.maven.plugin.AbstractMojo;
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.project.MavenProject;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
 import org.codehaus.griffon.launcher.GriffonLauncher;
 import org.codehaus.griffon.launcher.RootLoader;
 
 /**
  * Says "Hi" to the user.
  * 
- * @goal sayhi
  */
+@Mojo(name="sayhi")
 public class GreetingMojo extends AbstractMojo {
 	
 	
-/**
- * @parameter expression="${project}"
- * @readonly
- * @required
- */
+        @Parameter (property="project", readonly=true, required=true)
 	private MavenProject project;
 	
 	public void execute() throws MojoExecutionException{
@@ -32,6 +30,13 @@ public class GreetingMojo extends AbstractMojo {
 		
 		RootLoader rootLoader;
 		try {
+			getLog().info("Using classpath in project :" + project.getArtifactId());
+			URL[] urls = createCP();
+			for (URL url : urls) {
+				getLog().info("url = " + url.toExternalForm());
+			}
+			System.exit(2);
+
 			rootLoader = new RootLoader(createCP());
 		} catch (MalformedURLException e) {
 			throw new MojoExecutionException("Unable to create CP", e);

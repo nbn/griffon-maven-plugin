@@ -17,37 +17,35 @@ package org.codehaus.griffon.maven.plugin;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
 import org.codehaus.griffon.maven.tools.GriffonProject;
 
 /**
  * Validate consistency between Griffon and Maven settings.
  *
- * @author <a href="mailto:aheritier@gmail.com">Arnaud HERITIER</a>
- * @version $Id$
+ * @author Created for Grails by <a href="mailto:aheritier@gmail.com">Arnaud HERITIER</a>
+ * @author Ported to Griffon by <a href="mailto:nielsbechnielsen@gmail.com">Niels Bech Nielsen</a>
  * @description Validate consistency between Griffon (application.properties) and Maven (pom.xml) settings.
- * @goal validate
- * @phase validate
- * @requiresDependencyResolution runtime
- * @since 0.1
+ * @since 1.3
  */
+@Mojo(name="validate", defaultPhase=LifecyclePhase.VALIDATE, requiresDependencyResolution=ResolutionScope.RUNTIME)
 public class MvnValidateMojo extends AbstractGriffonMojo {
 
     /**
      * The artifact id of the project.
      *
-     * @parameter expression="${project.artifactId}"
-     * @required
-     * @readonly
      */
+	@Parameter(defaultValue = "${project.artifactId}", readonly = true)
     private String artifactId;
 
     /**
      * The version id of the project.
      *
-     * @parameter expression="${project.version}"
-     * @required
-     * @readonly
      */
+	@Parameter(defaultValue = "${project.version}", readonly = true)
     private String version;
 
     public void execute() throws MojoExecutionException, MojoFailureException {

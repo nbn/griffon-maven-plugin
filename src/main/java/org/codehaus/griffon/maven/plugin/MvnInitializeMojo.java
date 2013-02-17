@@ -17,46 +17,36 @@ package org.codehaus.griffon.maven.plugin;
 
 import org.apache.maven.plugin.MojoExecutionException;
 import org.apache.maven.plugin.MojoFailureException;
+import org.apache.maven.plugins.annotations.LifecyclePhase;
+import org.apache.maven.plugins.annotations.Mojo;
+import org.apache.maven.plugins.annotations.Parameter;
+import org.apache.maven.plugins.annotations.ResolutionScope;
 
 /**
  * Validate consistency between Griffon and Maven settings.
  *
- * @author <a href="mailto:aheritier@gmail.com">Arnaud HERITIER</a>
- * @author <a href="mailto:nielsbechnielsen@gmail.com">Niels Bech Nielsen</a>
+ * @author Created for Grails by <a href="mailto:aheritier@gmail.com">Arnaud HERITIER</a>
+ * @author Ported to Griffon by <a href="mailto:nielsbechnielsen@gmail.com">Niels Bech Nielsen</a>
  * @description Determines whether the current directory contains a Griffon application or not, and creates one in the latter case.
- * @goal init
- * @phase initialize
- * @requiresDependencyResolution runtime
- * @since 0.1
+ * @since 1.3
  */
+@Mojo(name="init", defaultPhase=LifecyclePhase.INITIALIZE, requiresDependencyResolution=ResolutionScope.RUNTIME)
 public class MvnInitializeMojo extends AbstractGriffonMojo {
 
 	
     /**
      * Set this to 'true' to skip initializing a non-griffon project. 
      *
-    * @parameter expression="${griffon.create.init.skip}"
-    * @since 0.3
+    * @since 1.3
     */
+	@Parameter(property="griffon.create.init.skip")
    private boolean skip;
 
    
-    /**
-     * The artifact id of the project.
-     *
-     * @parameter expression="${project.artifactId}"
-     * @required
-     * @readonly
-     */
+	@Parameter(defaultValue = "${project.artifactId}", readonly = true)
     private String artifactId;
 
-    /**
-     * The version id of the project.
-     *
-     * @parameter expression="${project.version}"
-     * @required
-     * @readonly
-     */
+	@Parameter(defaultValue = "${project.version}", readonly = true)
     private String version;
 
     public void execute() throws MojoExecutionException, MojoFailureException {
