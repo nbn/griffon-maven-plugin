@@ -9,6 +9,8 @@ alternative build mechanism.
 The plugin is templated from the [grails-maven-plugin][3], whos merits we
 hereby recognize.
 
+The plugin is currently under development. Find missing pieces and examples under project-resources.
+
 [logo]: http://media.xircles.codehaus.org/_projects/griffon/_logos/medium.png
 [1]: http://griffon-framework.org
 [2]: http://http://maven.apache.org/ 
