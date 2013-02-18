@@ -134,21 +134,17 @@ public abstract class AbstractGriffonMojo extends AbstractMojo {
 	}
 
 	protected final void runGriffon(String target, String args, String environment) throws MojoExecutionException {
-
 		getLog().debug("About to run 'griffon " + target + " " + args + "' for environment " + environment);
 
-		getLog().info("Using classpath :");
-		URL[] urls = createCP();
-		for (URL url : urls) {
-			getLog().info("url = " + url.toExternalForm());
-		}
-		// System.exit(2);
-
 		RootLoader rootLoader = new RootLoader(createCP());
-		GriffonLauncher launcher = new GriffonLauncher(rootLoader, griffonScriptHome.getAbsolutePath(), getBasedir()
-				.getAbsolutePath());
+		
+		GriffonLauncher launcher = new GriffonLauncher(rootLoader, 
+							griffonScriptHome.getAbsolutePath(), 
+							getBasedir().getAbsolutePath());
+		
 		launcher.setClassesDir(new File(project.getBuild().getOutputDirectory()));
 		launcher.setTestClassesDir(new File(project.getBuild().getTestOutputDirectory()));
+		
 		launcher.launch(target, args, environment);
 
 	}

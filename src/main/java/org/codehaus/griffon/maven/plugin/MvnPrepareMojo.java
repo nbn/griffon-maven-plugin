@@ -66,7 +66,7 @@ public class MvnPrepareMojo extends AbstractGriffonMojo {
 		if (templateDependency != null)
 			return templateDependency;
 		
-		return super.getGriffonlikeDependency("griffon-resources", "zip");
+		return super.getGriffonlikeDependency("griffon-template", "zip");
 	}
 	
 	private boolean validGriffonScriptHome() {
