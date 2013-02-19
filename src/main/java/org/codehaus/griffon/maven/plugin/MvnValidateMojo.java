@@ -69,16 +69,16 @@ public class MvnValidateMojo extends AbstractGriffonMojo {
             getLog().warn("Setting to default value '" + griffonProject.getAppVersion() + "'.");
 
             getGriffonServices().writeProjectDescriptor(getBasedir(), griffonProject);
-	        final String pomVersion = version.trim();
-	        final String griffonVersion = griffonProject.getAppVersion().trim();
-
-	        if (!griffonVersion.equals(pomVersion)) {
-	            throw new MojoFailureException("app.version [" + griffonVersion + "] in " +
-	                "application.properties is different of the version [" + pomVersion + "] in the pom.xml");
-	        }
 
         }
+        
+        final String pomVersion = version.trim();
+        final String griffonVersion = griffonProject.getAppVersion().trim();
 
+        if (!griffonVersion.equals(pomVersion)) {
+            throw new MojoFailureException("app.version [" + griffonVersion + "] in " +
+                "application.properties is different of the version [" + pomVersion + "] in the pom.xml");
+        }
 
     }
 }

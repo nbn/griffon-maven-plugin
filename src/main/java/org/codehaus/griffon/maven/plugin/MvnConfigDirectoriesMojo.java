@@ -27,7 +27,6 @@ import org.apache.maven.plugins.annotations.Mojo;
  *
  * @author Created for Grails by <a href="mailto:aheritier@gmail.com">Arnaud HERITIER</a>
  * @author Ported to Griffon by <a href="mailto:nielsbechnielsen@gmail.com">Niels Bech Nielsen</a>
- * @description Set sources/tests directories to be compatible with the directories layout used by griffon.
  * @since 1.3
  */
 @Mojo(name="config-directories", defaultPhase=LifecyclePhase.GENERATE_SOURCES, requiresProject=true)
@@ -37,18 +36,18 @@ public class MvnConfigDirectoriesMojo extends AbstractGriffonMojo {
 	public void execute() throws MojoExecutionException, MojoFailureException {
         final File projectDir = getBasedir();
         // Add sources directories
-        this.project.addCompileSourceRoot((new File(projectDir, "/grails-app/conf")).getAbsolutePath());
-        this.project.addCompileSourceRoot((new File(projectDir, "/grails-app/controllers")).getAbsolutePath());
-        this.project.addCompileSourceRoot((new File(projectDir, "/grails-app/domain")).getAbsolutePath());
-        this.project.addCompileSourceRoot((new File(projectDir, "/grails-app/services")).getAbsolutePath());
-        this.project.addCompileSourceRoot((new File(projectDir, "/grails-app/taglib")).getAbsolutePath());
-        this.project.addCompileSourceRoot((new File(projectDir, "/grails-app/utils")).getAbsolutePath());
-        this.project.addCompileSourceRoot((new File(projectDir, "/src/groovy")).getAbsolutePath());
-        this.project.addCompileSourceRoot((new File(projectDir, "src/java")).getAbsolutePath());
+        getProject().addCompileSourceRoot((new File(projectDir, "/grails-app/conf")).getAbsolutePath());
+        getProject().addCompileSourceRoot((new File(projectDir, "/grails-app/controllers")).getAbsolutePath());
+        getProject().addCompileSourceRoot((new File(projectDir, "/grails-app/domain")).getAbsolutePath());
+        getProject().addCompileSourceRoot((new File(projectDir, "/grails-app/services")).getAbsolutePath());
+        getProject().addCompileSourceRoot((new File(projectDir, "/grails-app/taglib")).getAbsolutePath());
+        getProject().addCompileSourceRoot((new File(projectDir, "/grails-app/utils")).getAbsolutePath());
+        getProject().addCompileSourceRoot((new File(projectDir, "/src/groovy")).getAbsolutePath());
+        getProject().addCompileSourceRoot((new File(projectDir, "src/java")).getAbsolutePath());
 
         // Add tests directories
-        this.project.addTestCompileSourceRoot((new File(projectDir, "test/unit")).getAbsolutePath());
-        this.project.addTestCompileSourceRoot((new File(projectDir, "test/integration")).getAbsolutePath());
+        getProject().addTestCompileSourceRoot((new File(projectDir, "test/unit")).getAbsolutePath());
+        getProject().addTestCompileSourceRoot((new File(projectDir, "test/integration")).getAbsolutePath());
 
 	}
 

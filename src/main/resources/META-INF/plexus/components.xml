@@ -42,6 +42,16 @@
         <lifecycles>
           <lifecycle>
             <id>default</id>
+              <!-- 
+                validate               : Check application.properties match maven pom 
+                 prepare               : download and unzip templates
+                 init                  : If not griffon project call 'griffon create-app' 
+                 generate-sources      : Add src and test directories to maven model 
+                 maven-compile         : call 'griffon compile'
+                 maven-test            : call 'griffon TestApp' with unit flag only
+                 maven-package-app     : call 'griffon package jar' and scans for the resulting jar
+                 maven-functional-test : call 'griffon TestApp' with unit, integration and functional flags
+               -->
             <phases>
               <validate>org.codehaus.griffon:griffon-maven-plugin:validate</validate>
               <initialize>
@@ -49,12 +59,10 @@
               	org.codehaus.griffon:griffon-maven-plugin:init
               </initialize>
               <generate-sources>org.codehaus.griffon:griffon-maven-plugin:config-directories</generate-sources>
-              <!-- 
-              <compile>org.griffon:griffon-maven-plugin:maven-compile</compile>
-              <test>org.griffon:griffon-maven-plugin:maven-test</test>
-              <package>org.griffon:griffon-maven-plugin:maven-griffon-app-package</package>
-              <integration-test>org.griffon:griffon-maven-plugin:maven-functional-test</integration-test>
-               -->
+              <compile>org.codehaus.griffon:griffon-maven-plugin:maven-compile</compile>
+              <test>org.codehaus.griffon:griffon-maven-plugin:maven-test</test>
+              <package>org.codehaus.griffon:griffon-maven-plugin:maven-package-app</package>
+              <integration-test>org.codehaus.griffon:griffon-maven-plugin:maven-functional-test</integration-test>
               <install>org.apache.maven.plugins:maven-install-plugin:install</install>
               <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
             </phases>
@@ -120,6 +128,63 @@
         </lifecycles>
       </configuration>
     </component>
+    
+   	<!-- ============ -->
+	<!-- griffon-zip  -->
+	<!-- ============ -->
+    <component>
+      <role>org.apache.maven.artifact.handler.ArtifactHandler</role>
+      <role-hint>griffon-zip</role-hint>
+      <implementation>org.apache.maven.artifact.handler.DefaultArtifactHandler</implementation>
+      <configuration>
+        <extension>zip</extension>
+        <type>griffon-zip</type>
+        <packaging>griffon-zip</packaging>
+        <language>java</language>
+        <addedToClasspath>false</addedToClasspath>
+      </configuration>
+    </component>
+
+    <component>
+      <role>org.apache.maven.lifecycle.mapping.LifecycleMapping</role>
+      <role-hint>griffon-zip</role-hint>
+      <implementation>org.apache.maven.lifecycle.mapping.DefaultLifecycleMapping</implementation>
+      <configuration>
+        <lifecycles>
+          <lifecycle>
+            <id>default</id>
+            <phases>
+              <validate>org.codehaus.griffon:griffon-maven-plugin:validate</validate>
+              <initialize>
+                org.codehaus.griffon:griffon-maven-plugin:prepare,
+              	org.codehaus.griffon:griffon-maven-plugin:init
+              </initialize>
+              <generate-sources>org.codehaus.griffon:griffon-maven-plugin:config-directories</generate-sources>
+              <compile>org.codehaus.griffon:griffon-maven-plugin:maven-compile</compile>
+              <test>org.codehaus.griffon:griffon-maven-plugin:maven-test</test>
+              <package>org.codehaus.griffon:griffon-maven-plugin:maven-package-zip</package>
+              <integration-test>org.codehaus.griffon:griffon-maven-plugin:maven-functional-test</integration-test>
+              <install>org.apache.maven.plugins:maven-install-plugin:install</install>
+              <deploy>org.apache.maven.plugins:maven-deploy-plugin:deploy</deploy>
+            </phases>
+          </lifecycle>
+          <lifecycle>
+            <id>clean</id>
+            <phases>
+              <clean>
+                org.apache.maven.plugins:maven-clean-plugin:clean
+              </clean>
+            </phases>
+          </lifecycle>
+        </lifecycles>
+      </configuration>
+    </component>
+    
+    
+   	<!-- =================== -->
+	<!-- Default components  -->
+	<!-- =================== -->
+    
     <component>
       <role>org.codehaus.griffon.maven.tools.GriffonServices</role>
       <implementation>

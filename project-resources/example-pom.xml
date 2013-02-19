@@ -15,8 +15,10 @@
     <packaging>griffon-app</packaging>
 
     <properties>
-      <!-- Include the griffon version here -->
-      <griffonScriptVersion>1.2.0</griffonScriptVersion>
+            <!-- =============================================== -->
+            <!-- Include the griffon version here -->
+            <!-- =============================================== -->
+      <griffon.script.version>1.2.0</griffon.script.version>
     </properties>
 
 <repositories>
@@ -37,6 +39,34 @@
                 <artifactId>griffon-maven-plugin</artifactId>
                 <version>1.3.0-SNAPSHOT</version>
                 <extensions>true</extensions>
+            </plugin>
+
+
+            <!-- =============================================== -->
+            <!-- Griffon use different directories during build, which
+                 can be configured in several ways. The easiest way to 
+                 overcome the temporary directories is to delete them
+                 like this.
+            -->
+            <!-- =============================================== -->
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-clean-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                  <filesets>
+                    <fileset>
+                      <directory>template</directory>
+                    </fileset>
+                    <fileset>
+                      <directory>dist</directory>
+                    </fileset>
+                    <fileset>
+                      <directory>staging</directory>
+                    </fileset>
+                  </filesets>
+                </configuration>
             </plugin>
 
         </plugins>
