@@ -18,7 +18,10 @@ package org.codehaus.griffon.maven.plugin;
 import java.io.File;
 import java.net.URL;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.maven.model.Dependency;
 import org.apache.maven.plugin.AbstractMojo;
@@ -235,7 +238,15 @@ public abstract class AbstractGriffonMojo extends AbstractMojo {
 	}
 
 	private URL[] createCP() throws MojoExecutionException {
-		Dependency coreDependency = getGriffonlikeDependency("griffon-cli", "jar");
+		List<Dependency> projectDependencies = getProject().getDependencies();
+		Set<URL> paths = new HashSet<URL>();
+		for (Dependency dependency : projectDependencies) {
+			paths.addAll(resolveTransitiveDependencyFile(dependency));
+		}
+		return paths.toArray(new URL[paths.size()]);
+	}
+
+	private Collection<URL> resolveTransitiveDependencyFile(Dependency coreDependency) throws MojoExecutionException {
 		Artifact artifact = new DefaultArtifact(coreDependency.getGroupId(), coreDependency.getArtifactId(),
 				coreDependency.getType(), coreDependency.getVersion());
 		DependencyFilter classpathFilter = DependencyFilterUtils.classpathFilter(JavaScopes.RUNTIME);
@@ -249,7 +260,7 @@ public abstract class AbstractGriffonMojo extends AbstractMojo {
 			for (ArtifactResult artifactResult : dependencies) {
 				cp.add(artifactResult.getArtifact().getFile().toURI().toURL());
 			}
-			return cp.toArray(new URL[cp.size()]);
+			return cp;
 		} catch (Exception e) {
 			throw new MojoExecutionException("Unable to resolve dependencies for " + coreDependency, e);
 		}
