@@ -24,6 +24,13 @@
           <distribution>repo</distribution>
         </license>    
     </licenses>
+    <distributionManagement>
+      <repository>
+        <id>bintray-nbn-maven-griffon-maven-plugin</id>
+        <name>nbn-maven-griffon-maven-plugin</name>
+        <url>https://api.bintray.com/maven/nbn/maven/griffon-maven-plugin</url>
+      </repository>
+    </distributionManagement>
     <scm>
       <url>http://github.com/nbn/griffon-maven-plugin</url>
       <developerConnection>scm:git:git://github.com/nbn/griffon-maven-plugin.git</developerConnection>
