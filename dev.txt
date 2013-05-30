@@ -1,0 +1,9 @@
+
+
+Release procedure:
+
+mvn clean deploy -P release
+
+project-resources/push-to-remote-maven.sh
+
+Publish on bintray..
