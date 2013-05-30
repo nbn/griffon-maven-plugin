@@ -15,6 +15,7 @@ Using the maven plugin
 
 Here is an example pom for the griffon sample project FileViewer:
 
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <!-- Copyright 2007 the original author or authors. Licensed under the Apache
     License, Version 2.0 (the "License"); you may not use this file except in
@@ -126,6 +127,7 @@ Here is an example pom for the griffon sample project FileViewer:
         </plugins>
     </build>
 </project>
+```
 
 
 [logo]: http://media.xircles.codehaus.org/_projects/griffon/_logos/medium.png
